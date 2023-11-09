@@ -64,8 +64,8 @@ const linkedList = () => {
   };
 
   const popLast = () => {
-    lastNode = returnLast();
-    secondToLastNode = returnIndexNode(size - 2);
+    const lastNode = returnLast();
+    const secondToLastNode = returnIndexNode(size - 2);
     secondToLastNode.next = null;
     lastNode = null;
     size -= 1;
@@ -104,9 +104,9 @@ const linkedList = () => {
       console.error("Range Error: index exceeds list size");
       return;
     }
-    iNode = returnIndexNode(index);
-    prevNode = returnIndexNode(index - 1);
-    newNode = node(value);
+    const iNode = returnIndexNode(index);
+    const prevNode = returnIndexNode(index - 1);
+    const newNode = node(value);
     newNode.next = iNode;
     prevNode.next = newNode;
     size += 1;
@@ -116,9 +116,9 @@ const linkedList = () => {
       console.error("Range Error: index exceeds list size");
       return;
     }
-    iNode = returnIndexNode(index);
-    nextNode = iNode.next;
-    prevNode = returnIndexNode(index - 1);
+    const iNode = returnIndexNode(index);
+    const nextNode = iNode.next;
+    const prevNode = returnIndexNode(index - 1);
     if (iNode.next !== null) {
       prevNode.next = nextNode;
     } else {
@@ -156,7 +156,7 @@ const linkedList = () => {
   };
 };
 
-list = linkedList();
+const list = linkedList();
 list.prepend(1);
 list.prepend(3);
 list.prepend(7);
@@ -167,6 +167,6 @@ list.unshiftFirst();
 console.log(list.valueSearch(7));
 console.log(list.indexSearch(7));
 list.insertAt("Efker", 2);
-list.removeAt(1); // will throw console.error for exceeding the size of the list
+list.removeAt(9); // will throw console.error for exceeding the size of the list
 list.stringify();
 console.log(list.length());
