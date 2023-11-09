@@ -11,7 +11,6 @@ const node = (value) => {
 const linkedList = () => {
   let head = null;
   let size = 0;
-  let listArr = [];
   let listString = '';
 
   const prepend = (input) => {
@@ -96,9 +95,45 @@ const linkedList = () => {
       return valueSearch(value, currentNode, i + 1);
     }
   }
-
-
-
+  const indexSearch = (value, node = head, i = 0) => {
+    if(node.value === value){
+      return i;
+    } else {
+      let currentNode = node.next;
+      if(i >= size || currentNode === null){
+        return null;
+      }
+      return valueSearch(value, currentNode, i + 1);
+    }
+  }
+  const insertAt = (value, index) => {
+    if (index >= size){
+      console.error("Range Error: index exceeds list size");
+      return;
+    }
+    iNode = returnIndexNode(index);
+    prevNode = returnIndexNode(index - 1);
+    newNode = node(value);
+    newNode.next = iNode;
+    prevNode.next = newNode;
+    size += 1;
+  }
+  const removeAt = (index) => {
+    if(index >= size){
+      console.error("Range Error: index exceeds list size");
+      return;
+    }
+    iNode = returnIndexNode(index);
+    nextNode = iNode.next;
+    prevNode = returnIndexNode(index - 1);
+    if(iNode.next !== null){
+      prevNode.next = nextNode;
+    } else {
+      prevNode.next = null;
+    }
+    size -= 1;
+  }
+  
   const stringify = () => {
     let current = head;
     for(let i = 0; i < size; i++){
@@ -111,7 +146,7 @@ const linkedList = () => {
       current = current.next;
     }
   }
-  return {prepend, append, returnLast, returnFirst, length, returnIndexNode, unshiftFirst, popLast, valueSearch, stringify};
+  return {prepend, append, returnLast, returnFirst, length, returnIndexNode, unshiftFirst, popLast, valueSearch, indexSearch, insertAt, removeAt, stringify};
 };
 
 
@@ -124,6 +159,9 @@ list.append(120);
 list.popLast();
 list.unshiftFirst();
 console.log(list.valueSearch(7));
+console.log(list.indexSearch(7));
+list.insertAt("Efker" , 2);
+list.removeAt(1); // will throw console.error for exceeding the size of the list
 list.stringify();
 console.log(list.length());
 
